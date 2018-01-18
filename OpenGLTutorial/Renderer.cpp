@@ -41,8 +41,8 @@ Renderer::Renderer(){
 
 
 	//Enable depth test (Causes z-fighting)
-	//glEnable(GL_DEPTH_TEST);
-	//glDepthMask(GL_TRUE);
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
 
 	////Enable texture mapping
 	//glEnable(GL_TEXTURE_2D);
@@ -186,7 +186,6 @@ void Renderer::PrepQuad(GLQuadData &quad, const GLfloat vertices[], const GLuint
 	//Generate VAO and VBO
 	glGenVertexArrays(1, &(quad.VAO));
 	glGenBuffers(1, &(quad.VBO));
-	glGenBuffers(1, &(quad.EBO));
 
 	//// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
 	glBindVertexArray(quad.VAO);
@@ -195,8 +194,6 @@ void Renderer::PrepQuad(GLQuadData &quad, const GLfloat vertices[], const GLuint
 	////Put data in buffer
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quad.EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	////Tell OpenGL how vertex data should be interpreted
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)0);
@@ -255,7 +252,7 @@ void Renderer::DrawQuad(GLQuadData &quadData, Shader &shader){
 	transform = translate(transform, vec3(0.5f, 0.5f, 0.0f));
 	//transform = rotate(transform, (GLfloat)SDL_GetTicks() * 2.0f, vec3(0.0f, 0.0f, 1.0f));
 
-	GLint transformLoc = glGetUniformLocation(shader.GetShaderProgram(), "transform");
+	GLint transformLoc = glGetUniformLocation(shader.GetShaderProgram(), "mvp");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, value_ptr(transform));
 
 	glActiveTexture(GL_TEXTURE0);
@@ -271,5 +268,31 @@ void Renderer::DrawQuad(GLQuadData &quadData, Shader &shader){
 void Renderer::UnloadQuad(GLQuadData &quadData){
 	glDeleteVertexArrays(1, &(quadData.VAO));
 	glDeleteBuffers(1, &(quadData.VBO));
-	glDeleteBuffers(1, &(quadData.EBO));
+}
+
+
+
+void Renderer::DrawCube(GLQuadData &quadData, const GLfloat vertices[], const mat4 &projection, Shader &shader){
+	
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, quadData.texture);
+	glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "tex"), 0);
+
+
+	shader.UseProgram();
+
+
+	mat4 model, view;
+	model = rotate(model, (GLfloat)(SDL_GetTicks())*0.001f, vec3(0.5f, 1.0f, 0.0f));
+	view = translate(view, vec3(0.0f, 0.0f, -3.0f));
+	//model = rotate(model, 0.5f, vec3(1.0f, 0.0f, 0.0f));
+	//view = translate(view, vec3(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, -700.0f));
+
+	mat4 mvp = projection * view * model;
+	GLint mvpLoc = glGetUniformLocation(shader.GetShaderProgram(), "mvp");
+	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr(mvp));
+
+	glBindVertexArray(quadData.VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
 }

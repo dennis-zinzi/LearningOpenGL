@@ -51,7 +51,7 @@ struct GLTriangleData{
 struct GLQuadData{
 	GLuint VBO;
 	GLuint VAO;
-	GLuint EBO;
+	//GLuint EBO;
 
 	GLuint texture;
 };
@@ -77,6 +77,8 @@ class Renderer{
 		void PrepQuadTexture(GLQuadData &quad, const string &texImgPath);
 		void DrawQuad(GLQuadData &quadData, Shader &shader);
 		void UnloadQuad(GLQuadData &quadData);
+
+		void DrawCube(GLQuadData &quadData, const GLfloat vertices[], const mat4 &projection, Shader &shader);
 
 	private:
 		SDL_Window *screen;
