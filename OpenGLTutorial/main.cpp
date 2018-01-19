@@ -1,8 +1,9 @@
 #include "Renderer.h"
 #include "Shader.h"
+#include "Camera.h"
 
 
-bool CheckInputs(){
+bool CheckInputs(Camera *camera, const float time){
 	SDL_Event event;
 
 	//Runs whilst there is an event being queued
@@ -21,8 +22,49 @@ bool CheckInputs(){
 				}
 				break;
 			}
+			break;
+			case SDL_MOUSEMOTION:
+			{
+				float xOffset = event.motion.xrel,
+					yOffset = event.motion.yrel;
+
+				camera->ProcessMouseMovement(xOffset, -yOffset);
+			}
+			break;
+			case SDL_MOUSEWHEEL:
+			{
+				camera->ProcessMouseScroll(event.wheel.y);
+			}
+			break;
 		}
 	}
+
+	const Uint8 *keyboard_state = SDL_GetKeyboardState(NULL);
+
+	// Move player
+	if((keyboard_state[SDL_SCANCODE_W] && !keyboard_state[SDL_SCANCODE_S])
+		|| (keyboard_state[SDL_SCANCODE_UP] && !keyboard_state[SDL_SCANCODE_DOWN])) {
+		//Apply force upwards
+		camera->UpdateCameraPos(FORWARD, time * 0.001f);
+	}
+	else if((keyboard_state[SDL_SCANCODE_S] && !keyboard_state[SDL_SCANCODE_W])
+		|| (keyboard_state[SDL_SCANCODE_DOWN] && !keyboard_state[SDL_SCANCODE_UP])) {
+		//Apply force downwards
+		camera->UpdateCameraPos(BACKWARD, time* 0.001f);
+	}
+
+	if((keyboard_state[SDL_SCANCODE_D] && !keyboard_state[SDL_SCANCODE_A])
+		|| (keyboard_state[SDL_SCANCODE_RIGHT] && !keyboard_state[SDL_SCANCODE_LEFT])) {
+		//Apply force rightwards
+		camera->UpdateCameraPos(RIGHTWARD, time* 0.001f);
+	}
+	else if((keyboard_state[SDL_SCANCODE_A] && !keyboard_state[SDL_SCANCODE_D])
+		|| (keyboard_state[SDL_SCANCODE_LEFT] && !keyboard_state[SDL_SCANCODE_RIGHT])) {
+		//Apply force leftwards
+		camera->UpdateCameraPos(LEFTWARD, time* 0.001f);
+	}	
+		
+
 
 	return true;
 }
@@ -35,51 +77,6 @@ int main(int argc, char **argv){
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	// use with Orthographic Projection
-	
-	//GLfloat vertices[] = {
-	//-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 0.0f,
-	//0.5f * 500, -0.5f * 500, -0.5f * 500,  1.0f, 0.0f,
-	//0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-	//0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-	//-0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-	//-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 0.0f,
-
-	//-0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-	//0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-	//0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 1.0f,
-	//0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 1.0f,
-	//-0.5f * 500,  0.5f * 500,  0.5f * 500,  0.0f, 1.0f,
-	//-0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-
-	//-0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-	//-0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-	//-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-	//-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-	//-0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-	//-0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-
-	//0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-	//0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-	//0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-	//0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-	//0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-	//0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-
-	//-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-	//0.5f * 500, -0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-	//0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-	//0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-	//-0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-	//-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-
-	//-0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-	//0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-	//0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-	//0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-	//-0.5f * 500,  0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-	//-0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f
-	//};
-	
 
 	// use with Perspective Projection
 	GLfloat vertices[] = {
@@ -132,6 +129,18 @@ int main(int argc, char **argv){
 		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
 	};
 
+	vector<vec3> cubePositions = {
+		vec3(0.0f, 0.0f, 0.0f),
+		vec3(2.0f, 5.0f, -15.0f),
+		vec3(-1.5f, -2.0f, -2.5f),
+		vec3(-3.8f, -2.0f, -12.3f),
+		vec3(2.4f, -0.4f, -3.5f),
+		vec3(-1.7f, 3.0f, -7.5f),
+		vec3(1.3f, -2.0f, -2.5f),
+		vec3(1.5f, 2.0f, -2.5f),
+		vec3(1.5f, 0.2f, -1.5f),
+		vec3(-1.3f, 1.0f, -1.5f),
+	};
 
 	GLQuadData quad;
 	//renderer->PrepQuad(quad, vertices, indices);
@@ -171,21 +180,30 @@ int main(int argc, char **argv){
 	//Set texture
 	renderer->PrepQuadTexture(quad, "batman.jpg");
 
+	Camera *camera = new Camera(vec3(0.0f, 0.0f, 3.0f));
 
 	mat4 projection;
-	projection = glm::perspective(45.0f, (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 1000.0f);
-	//projection = glm::ortho(0.0f, (GLfloat)WINDOW_WIDTH, 0.0f, (GLfloat)WINDOW_HEIGHT, 0.1f, 1000.0f);
+
 
 	bool running = true;
 
+	float msec = 0.0f,
+		newTime = 0.0f;
+
 	while(running){
-		running = CheckInputs();
+		newTime = (float)SDL_GetTicks();
+		running = CheckInputs(camera, newTime - msec);
+		msec = newTime;
 		
+		//camera->UpdateCamera();
 		//draw triangle
 		//renderer->DrawTriangle(tri, simple);
 		//Draw quad
 		//renderer->DrawQuad(quad, simple);
-		renderer->DrawCube(quad, vertices, projection, simple);
+		//renderer->DrawCube(quad, vertices, projection, simple);
+		projection = glm::perspective(camera->GetZoom(), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 1000.0f);
+
+		renderer->DrawCubes(quad, cubePositions, camera->GetVewMatrix(), projection, simple);
 
 		renderer->RenderScene();
 	}

@@ -56,6 +56,8 @@ struct GLQuadData{
 	GLuint texture;
 };
 
+
+
 class Renderer{
 	public:
 		Renderer();
@@ -79,6 +81,7 @@ class Renderer{
 		void UnloadQuad(GLQuadData &quadData);
 
 		void DrawCube(GLQuadData &quadData, const GLfloat vertices[], const mat4 &projection, Shader &shader);
+		void DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const mat4 &view, const mat4 projection, Shader &shader);
 
 	private:
 		SDL_Window *screen;

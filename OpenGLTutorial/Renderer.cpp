@@ -47,6 +47,9 @@ Renderer::Renderer(){
 	////Enable texture mapping
 	//glEnable(GL_TEXTURE_2D);
 	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	//Don't show mouse + helps with mouse motion
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 
@@ -63,6 +66,9 @@ Renderer::~Renderer(){
 void Renderer::RenderScene(){
 	SDL_GL_SwapWindow(screen);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//Move mouse to center of screen
+	SDL_WarpMouseInWindow(screen, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 }
 
 
@@ -294,5 +300,39 @@ void Renderer::DrawCube(GLQuadData &quadData, const GLfloat vertices[], const ma
 
 	glBindVertexArray(quadData.VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
+}
+
+
+
+void Renderer::DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const mat4 &view, const mat4 projection, Shader &shader){
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, quadData.texture);
+	glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "tex"), 0);
+
+
+	shader.UseProgram();
+
+
+	mat4 mvp = projection * view;// *model;
+	GLint mvpLoc = glGetUniformLocation(shader.GetShaderProgram(), "mvp");
+
+
+	glBindVertexArray(quadData.VAO);
+
+
+	mat4 model;
+
+
+	for(size_t i = 0; i < cubes.size(); i++){
+		model = translate(model, cubes[i]);
+		GLfloat angle = 20.0f * i;
+		model = rotate(model, angle, vec3(1.0f, 0.3f, 0.5f));
+
+		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr((mvp * model)));
+		
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
+
 	glBindVertexArray(0);
 }
