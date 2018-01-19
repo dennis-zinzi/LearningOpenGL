@@ -52,7 +52,7 @@ void Camera::UpdateCameraPos(Camera_Movement dir, GLfloat time){
 	}
 }
 
-void Camera::ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch){
+void Camera::UpdateCameraLook(float xOffset, float yOffset, bool constrainPitch){
 	xOffset *= sensitivity;
 	yOffset *= sensitivity;
 
@@ -71,7 +71,7 @@ void Camera::ProcessMouseMovement(float xOffset, float yOffset, bool constrainPi
 	UpdateCamera();
 }
 
-void Camera::ProcessMouseScroll(float yOffset){
+void Camera::UpdateCameraZoom(float yOffset){
 	if(zoom >= 1.0f && zoom <= 45.0f){
 		zoom -= yOffset;
 	}

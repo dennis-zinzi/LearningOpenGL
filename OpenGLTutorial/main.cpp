@@ -11,8 +11,7 @@ bool CheckInputs(Camera *camera, const float time){
 		switch(event.type){
 			case SDL_QUIT:
 				return false;
-			case SDL_KEYDOWN:
-			{
+			case SDL_KEYDOWN: {
 				switch(event.key.keysym.sym){
 					case SDLK_ESCAPE:
 					case SDLK_x:
@@ -22,20 +21,19 @@ bool CheckInputs(Camera *camera, const float time){
 				}
 				break;
 			}
-			break;
-			case SDL_MOUSEMOTION:
-			{
+			case SDL_MOUSEMOTION: {
 				float xOffset = event.motion.xrel,
 					yOffset = event.motion.yrel;
 
-				camera->ProcessMouseMovement(xOffset, -yOffset);
+				camera->UpdateCameraLook(xOffset, -yOffset);
+
+				break;
 			}
-			break;
-			case SDL_MOUSEWHEEL:
-			{
-				camera->ProcessMouseScroll(event.wheel.y);
+			case SDL_MOUSEWHEEL: {
+				camera->UpdateCameraZoom(event.wheel.y * 0.1f);
+				
+				break;
 			}
-			break;
 		}
 	}
 
@@ -72,7 +70,7 @@ bool CheckInputs(Camera *camera, const float time){
 int main(int argc, char **argv){
 	Renderer *renderer = new Renderer;
 
-	Shader simple("vertexShader.glsl", "fragmentShader.glsl");
+	//Shader simple("vertexShader.glsl", "fragmentShader.glsl");
 
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
@@ -81,52 +79,52 @@ int main(int argc, char **argv){
 	// use with Perspective Projection
 	GLfloat vertices[] = {
 		//back
-		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
-		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, -1.0f,
+		0.5f, -0.5f, -0.5f,		0.0f, 0.0f, -1.0f,
+		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,
+		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,
+		-0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, -1.0f,
 
 		//front
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-		0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-		-0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
+		0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
+		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
+		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
+		-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
 
 		//left
-		-0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-		-0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f,		-1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,	-1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,	-1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,
 
 		//right
-		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,
+		0.5f, 0.5f, -0.5f,		1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,
+		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,
 
 		//bottom
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f, 1.0f, 1.0f,
-		0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
-		0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, -1.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,		0.0f, -1.0f, 0.0f,
+		0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,
+		0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, -1.0f, 0.0f,
 
 		//top
-		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
-		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
+		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,
+		0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f
 	};
 
 	vector<vec3> cubePositions = {
@@ -142,15 +140,62 @@ int main(int argc, char **argv){
 		vec3(-1.3f, 1.0f, -1.5f),
 	};
 
-	GLQuadData quad;
+	//GLQuadData quad;
+	////renderer->PrepQuad(quad, vertices, indices);
+	////Generate VAO and VBO
+	//glGenVertexArrays(1, &(quad.VAO));
+	//glGenBuffers(1, &(quad.VBO));
+	//
+	//// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+	//glBindVertexArray(quad.VAO);
+	//glBindBuffer(GL_ARRAY_BUFFER, quad.VBO);
+
+	////Put data in buffer
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+
+
+	////Tell OpenGL how vertex data should be interpreted
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	//glEnableVertexAttribArray(0);
+
+	////Tell OpenGL how normal data is parsed
+	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	//glEnableVertexAttribArray(1);
+
+
+	//// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO,
+	//// but this rarely happens. Modifying other VAOs requires a call to glBindVertexArray
+	//// anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+	//glBindVertexArray(0);
+
+	//// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex
+	//// attribute's bound vertex buffer object so afterwards we can safely unbind
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
+	//Set texture
+	//renderer->PrepQuadTexture(quad, "batman.jpg");
+
+	Camera *camera = new Camera(vec3(0.0f, 0.0f, 3.0f));
+
+	mat4 projection;
+
+
+	Shader lightingShader("lightingVertex.glsl", "lightingFragment.glsl");
+	Shader lampShader("lampVertex.glsl", "lampFrag.glsl");
+	vec3 lightPos(1.2f, 1.0f, 2.0f);
+
+	GLQuadData lightQuad;
+	//lightQuad.VBO = quad.VBO;
 	//renderer->PrepQuad(quad, vertices, indices);
 	//Generate VAO and VBO
-	glGenVertexArrays(1, &(quad.VAO));
-	glGenBuffers(1, &(quad.VBO));
-	
+	glGenVertexArrays(1, &(lightQuad.VAO));
+	glGenBuffers(1, &(lightQuad.VBO));
+
 	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	glBindVertexArray(quad.VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, quad.VBO);
+	glBindVertexArray(lightQuad.VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, lightQuad.VBO);
 
 	//Put data in buffer
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -158,14 +203,13 @@ int main(int argc, char **argv){
 
 
 	//Tell OpenGL how vertex data should be interpreted
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
 
-	//Tell OpenGL how texture data should be interpreted
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	//Tell OpenGL how normal data is parsed
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
-
 
 	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO,
 	// but this rarely happens. Modifying other VAOs requires a call to glBindVertexArray
@@ -175,14 +219,6 @@ int main(int argc, char **argv){
 	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex
 	// attribute's bound vertex buffer object so afterwards we can safely unbind
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-
-	//Set texture
-	renderer->PrepQuadTexture(quad, "batman.jpg");
-
-	Camera *camera = new Camera(vec3(0.0f, 0.0f, 3.0f));
-
-	mat4 projection;
 
 
 	bool running = true;
@@ -203,14 +239,16 @@ int main(int argc, char **argv){
 		//renderer->DrawCube(quad, vertices, projection, simple);
 		projection = glm::perspective(camera->GetZoom(), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 1000.0f);
 
-		renderer->DrawCubes(quad, cubePositions, camera->GetVewMatrix(), projection, simple);
+		//renderer->DrawCubes(quad, cubePositions, camera->GetVewMatrix(), projection, simple);
+		renderer->DrawLighingCubes(lightQuad, lightPos, camera->GetPos(), camera->GetViewMatrix(), projection, lightingShader);
+		renderer->DrawLamp(lightQuad, lightPos, camera->GetViewMatrix(), projection, lampShader);
 
 		renderer->RenderScene();
 	}
 
 
 	//renderer->UnloadTri(tri);
-	renderer->UnloadQuad(quad);
+	renderer->UnloadQuad(lightQuad);
 	delete renderer;
 
 	return 0;

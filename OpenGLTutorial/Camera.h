@@ -42,19 +42,23 @@ class Camera{
 			vec3 front = vec3(0.0f, 0.0f, -1.0f), vec3 right = vec3(0.0f, 0.0f, 0.0f));
 
 
-		inline mat4 GetVewMatrix(){
+		inline mat4 GetViewMatrix(){
 			return lookAt(position, position + front, forward);
 		}
 
 
 		void UpdateCameraPos(Camera_Movement dir, GLfloat time);
 
-		void ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch = true);
-		void ProcessMouseScroll(float yOffset);
+		void UpdateCameraLook(float xOffset, float yOffset, bool constrainPitch = true);
+		void UpdateCameraZoom(float yOffset);
 
 
 		inline float GetZoom(){
 			return zoom;
+		}
+
+		inline vec3 GetPos(){
+			return position;
 		}
 
 		void UpdateCamera();

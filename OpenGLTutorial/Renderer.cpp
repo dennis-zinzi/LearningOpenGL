@@ -29,7 +29,7 @@ Renderer::Renderer(){
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	//OpenGL
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	//glMatrixMode(GL_PROJECTION);
 	//glLoadIdentity();
 	//gluPerspective(45.0f, WINDOW_WIDTH / WINDOW_HEIGHT, 1.0f, 500.0f);
@@ -305,10 +305,10 @@ void Renderer::DrawCube(GLQuadData &quadData, const GLfloat vertices[], const ma
 
 
 
-void Renderer::DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const mat4 &view, const mat4 projection, Shader &shader){
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, quadData.texture);
-	glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "tex"), 0);
+void Renderer::DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const mat4 &view, const mat4 &projection, Shader &shader){
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, quadData.texture);
+	//glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "tex"), 0);
 
 
 	shader.UseProgram();
@@ -334,5 +334,54 @@ void Renderer::DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 
+	glBindVertexArray(0);
+}
+
+void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos, const vec3 &camPos, const mat4 &view, const mat4 &projection, Shader &lightShader){
+	lightShader.UseProgram();
+
+	GLint objColorLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "objColor");
+	GLint lightColorLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "lightColor");
+	glUniform3f(objColorLoc, 1.0f, 0.5f, 0.31f);
+	glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f);
+
+
+	GLint lightPosLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "lightPos");
+	GLint viewPosLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "viewPos");
+	glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
+	glUniform3f(viewPosLoc, camPos.x, camPos.y, camPos.z);
+	
+	
+	mat4 model;
+	GLint modelLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+
+	mat4 mvp = projection * view;// *model;
+	GLint mvpLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "mvp");
+	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr((mvp * model)));
+
+
+
+	glBindVertexArray(lightQuad.VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
+
+}
+
+void Renderer::DrawLamp(GLQuadData & lampQuad, const vec3 &lampPos, const mat4 &view, const mat4 &projection, Shader &lampShader){
+	lampShader.UseProgram();
+
+	mat4 mvp = projection * view;// *model;
+	GLint mvpLoc = glGetUniformLocation(lampShader.GetShaderProgram(), "mvp");
+
+	mat4 model;
+	model = translate(model, lampPos);
+	model = scale(model, vec3(0.2f, 0.2f, 0.2f));
+
+	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr((mvp * model)));
+
+
+	glBindVertexArray(lampQuad.VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 }
