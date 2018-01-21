@@ -140,40 +140,6 @@ int main(int argc, char **argv){
 		vec3(-1.3f, 1.0f, -1.5f),
 	};
 
-	//GLQuadData quad;
-	////renderer->PrepQuad(quad, vertices, indices);
-	////Generate VAO and VBO
-	//glGenVertexArrays(1, &(quad.VAO));
-	//glGenBuffers(1, &(quad.VBO));
-	//
-	//// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	//glBindVertexArray(quad.VAO);
-	//glBindBuffer(GL_ARRAY_BUFFER, quad.VBO);
-
-	////Put data in buffer
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-
-
-	////Tell OpenGL how vertex data should be interpreted
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-	//glEnableVertexAttribArray(0);
-
-	////Tell OpenGL how normal data is parsed
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	//glEnableVertexAttribArray(1);
-
-
-	//// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO,
-	//// but this rarely happens. Modifying other VAOs requires a call to glBindVertexArray
-	//// anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-	//glBindVertexArray(0);
-
-	//// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex
-	//// attribute's bound vertex buffer object so afterwards we can safely unbind
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-
 	//Set texture
 	//renderer->PrepQuadTexture(quad, "batman.jpg");
 
@@ -230,13 +196,10 @@ int main(int argc, char **argv){
 		newTime = (float)SDL_GetTicks();
 		running = CheckInputs(camera, newTime - msec);
 		msec = newTime;
+
+		//lightPos.x -= 0.005f;
+		//lightPos.z -= 0.005f;
 		
-		//camera->UpdateCamera();
-		//draw triangle
-		//renderer->DrawTriangle(tri, simple);
-		//Draw quad
-		//renderer->DrawQuad(quad, simple);
-		//renderer->DrawCube(quad, vertices, projection, simple);
 		projection = glm::perspective(camera->GetZoom(), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 1000.0f);
 
 		//renderer->DrawCubes(quad, cubePositions, camera->GetVewMatrix(), projection, simple);

@@ -337,28 +337,51 @@ void Renderer::DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const 
 	glBindVertexArray(0);
 }
 
-void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos, const vec3 &camPos, const mat4 &view, const mat4 &projection, Shader &lightShader){
+void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos, const vec3 &camPos, const mat4 &view, const mat4 &projection, const Shader &lightShader){
 	lightShader.UseProgram();
 
-	GLint objColorLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "objColor");
-	GLint lightColorLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "lightColor");
-	glUniform3f(objColorLoc, 1.0f, 0.5f, 0.31f);
-	glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f);
+	const GLuint shaderProg = lightShader.GetShaderProgram();
 
-
-	GLint lightPosLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "lightPos");
-	GLint viewPosLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "viewPos");
+	GLint lightPosLoc = glGetUniformLocation(shaderProg, "light.pos");
+	GLint viewPosLoc = glGetUniformLocation(shaderProg, "viewPos");
 	glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 	glUniform3f(viewPosLoc, camPos.x, camPos.y, camPos.z);
-	
+
+	//Time in secs
+	float time = SDL_GetTicks() * 0.001f;
+
+	vec3 lightColor;
+	lightColor.r = sin(time * 2.0f);
+	lightColor.g = sin(time * 0.7f);
+	lightColor.b = sin(time * 1.3f);
+
+	vec3 diffuseColor = lightColor * vec3(0.5f);
+	vec3 ambientColor = diffuseColor * vec3(0.2f);
+	glUniform3f(glGetUniformLocation(shaderProg, "light.ambient"),
+		ambientColor.r, ambientColor.g, ambientColor.b);
+	glUniform3f(glGetUniformLocation(shaderProg, "light.diffuse"),
+		diffuseColor.r, diffuseColor.g, diffuseColor.b);
+	glUniform3f(glGetUniformLocation(shaderProg, "light.specular"),
+		1.0f, 1.0f, 1.0f);
+
+
+	glUniform3f(glGetUniformLocation(shaderProg, "material.ambient"),
+		1.0f, 0.5f, 0.31f);
+	glUniform3f(glGetUniformLocation(shaderProg, "material.diffuse"),
+		1.0f, 0.5f, 0.31f);
+	glUniform3f(glGetUniformLocation(shaderProg, "material.specular"),
+		1.0f, 0.5f, 0.31f);
+	glUniform1f(glGetUniformLocation(shaderProg, "material.shininess"),
+		32.0f);
+
 	
 	mat4 model;
-	GLint modelLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "model");
+	GLint modelLoc = glGetUniformLocation(shaderProg, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
 
-	mat4 mvp = projection * view;// *model;
-	GLint mvpLoc = glGetUniformLocation(lightShader.GetShaderProgram(), "mvp");
-	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr((mvp * model)));
+	mat4 mvp = projection * view * model;
+	GLint mvpLoc = glGetUniformLocation(shaderProg, "mvp");
+	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr(mvp));
 
 
 
@@ -368,17 +391,16 @@ void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos, con
 
 }
 
-void Renderer::DrawLamp(GLQuadData & lampQuad, const vec3 &lampPos, const mat4 &view, const mat4 &projection, Shader &lampShader){
+void Renderer::DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const mat4 &view, const mat4 &projection, const Shader &lampShader){
 	lampShader.UseProgram();
-
-	mat4 mvp = projection * view;// *model;
-	GLint mvpLoc = glGetUniformLocation(lampShader.GetShaderProgram(), "mvp");
 
 	mat4 model;
 	model = translate(model, lampPos);
 	model = scale(model, vec3(0.2f, 0.2f, 0.2f));
 
-	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr((mvp * model)));
+	mat4 mvp = projection * view * model;
+	GLint mvpLoc = glGetUniformLocation(lampShader.GetShaderProgram(), "mvp");
+	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr(mvp));
 
 
 	glBindVertexArray(lampQuad.VAO);

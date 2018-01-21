@@ -24,7 +24,7 @@ class Shader{
 		Shader(const GLchar *vertexPath, const GLchar *fragmentPath);
 		~Shader();
 
-		inline void UseProgram(){
+		inline void UseProgram() const{
 			if(shaderProgram == -1){
 				cout << "Error with program, unable to use" << endl;
 				return;
@@ -33,7 +33,7 @@ class Shader{
 			glUseProgram(shaderProgram);
 		}
 
-		inline GLuint GetShaderProgram(){
+		inline GLuint GetShaderProgram() const{
 			return shaderProgram;
 		}
 

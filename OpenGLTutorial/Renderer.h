@@ -83,8 +83,8 @@ class Renderer{
 		void DrawCube(GLQuadData &quadData, const GLfloat vertices[], const mat4 &projection, Shader &shader);
 		void DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const mat4 &view, const mat4 &projection, Shader &shader);
 
-		void DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos,  const vec3 &camPos, const mat4 &view, const mat4 &projection, Shader &lightShader);
-		void DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const mat4 &view, const mat4 &projection, Shader &lampShader);
+		void DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos,  const vec3 &camPos, const mat4 &view, const mat4 &projection, const Shader &lightShader);
+		void DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const mat4 &view, const mat4 &projection, const Shader &lampShader);
 
 	private:
 		SDL_Window *screen;
