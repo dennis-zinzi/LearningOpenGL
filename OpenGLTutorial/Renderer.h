@@ -54,6 +54,7 @@ struct GLQuadData{
 	//GLuint EBO;
 
 	GLuint texture;
+	GLuint specularTexture;
 };
 
 
@@ -85,6 +86,8 @@ class Renderer{
 
 		void DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos,  const vec3 &camPos, const mat4 &view, const mat4 &projection, const Shader &lightShader);
 		void DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const mat4 &view, const mat4 &projection, const Shader &lampShader);
+
+		void PrepLightmapTexture(GLQuadData &quad, const string &texImgPath, const string &texSpecularImgPath);
 
 	private:
 		SDL_Window *screen;

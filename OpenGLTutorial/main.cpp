@@ -70,74 +70,50 @@ bool CheckInputs(Camera *camera, const float time){
 int main(int argc, char **argv){
 	Renderer *renderer = new Renderer;
 
-	//Shader simple("vertexShader.glsl", "fragmentShader.glsl");
-
-
-	// Set up vertex data (and buffer(s)) and attribute pointers
-	// use with Orthographic Projection
-
-	// use with Perspective Projection
+	//Cube vertices
 	GLfloat vertices[] = {
-		//back
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, -1.0f,
-		0.5f, -0.5f, -0.5f,		0.0f, 0.0f, -1.0f,
-		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,
-		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,
-		-0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, -1.0f,
+		// Positions            // Normals          // Texture Coords
+		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, -1.0f,	0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,		0.0f, 0.0f, -1.0f,	1.0f, 0.0f,
+		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,	1.0f, 1.0f,
+		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,	1.0f, 1.0f,
+		-0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,	0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, -1.0f,	0.0f, 0.0f,
 
-		//front
-		-0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
-		0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
-		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
-		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
-		-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,
+		0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	1.0f, 1.0f,
+		-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,
 
-		//left
-		-0.5f, 0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,
-		-0.5f, 0.5f, -0.5f,		-1.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,	-1.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,	-1.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,
-		-0.5f, 0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,	1.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f,		-1.0f, 0.0f, 0.0f,	1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,	-1.0f, 0.0f, 0.0f,	0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,	-1.0f, 0.0f, 0.0f,	0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,	0.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,	1.0f, 0.0f,
 
-		//right
-		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,
-		0.5f, 0.5f, -0.5f,		1.0f, 0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,
-		0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,
-		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,
+		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 0.0f,
+		0.5f, 0.5f, -0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,	0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,	0.0f, 1.0f,
+		0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	0.0f, 0.0f,
+		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 0.0f,
 
-		//bottom
-		-0.5f, -0.5f, -0.5f,	0.0f, -1.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,		0.0f, -1.0f, 0.0f,
-		0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,
-		0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,
-		-0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, -1.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, -1.0f, 0.0f,	0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,		0.0f, -1.0f, 0.0f,	1.0f, 1.0f,
+		0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,	1.0f, 0.0f,
+		0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,	1.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,	0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, -1.0f, 0.0f,	0.0f, 1.0f,
 
-		//top
-		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,
-		0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,
-		0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,
-		0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,
-		-0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,
-		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f
-	};
-
-	vector<vec3> cubePositions = {
-		vec3(0.0f, 0.0f, 0.0f),
-		vec3(2.0f, 5.0f, -15.0f),
-		vec3(-1.5f, -2.0f, -2.5f),
-		vec3(-3.8f, -2.0f, -12.3f),
-		vec3(2.4f, -0.4f, -3.5f),
-		vec3(-1.7f, 3.0f, -7.5f),
-		vec3(1.3f, -2.0f, -2.5f),
-		vec3(1.5f, 2.0f, -2.5f),
-		vec3(1.5f, 0.2f, -1.5f),
-		vec3(-1.3f, 1.0f, -1.5f),
+		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,
+		0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f
 	};
 
 	//Set texture
@@ -169,13 +145,17 @@ int main(int argc, char **argv){
 
 
 	//Tell OpenGL how vertex data should be interpreted
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
 
 	//Tell OpenGL how normal data is parsed
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
+
+	//Tell OpenGL how texture data is parsed
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
 
 	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO,
 	// but this rarely happens. Modifying other VAOs requires a call to glBindVertexArray
@@ -185,6 +165,8 @@ int main(int argc, char **argv){
 	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex
 	// attribute's bound vertex buffer object so afterwards we can safely unbind
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	renderer->PrepLightmapTexture(lightQuad, "container2.png", "container2_specular.png");
 
 
 	bool running = true;

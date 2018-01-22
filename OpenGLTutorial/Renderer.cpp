@@ -350,27 +350,19 @@ void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos, con
 	//Time in secs
 	float time = SDL_GetTicks() * 0.001f;
 
-	vec3 lightColor;
-	lightColor.r = sin(time * 2.0f);
-	lightColor.g = sin(time * 0.7f);
-	lightColor.b = sin(time * 1.3f);
 
-	vec3 diffuseColor = lightColor * vec3(0.5f);
-	vec3 ambientColor = diffuseColor * vec3(0.2f);
 	glUniform3f(glGetUniformLocation(shaderProg, "light.ambient"),
-		ambientColor.r, ambientColor.g, ambientColor.b);
+		0.2f, 0.2f, 0.2f);
 	glUniform3f(glGetUniformLocation(shaderProg, "light.diffuse"),
-		diffuseColor.r, diffuseColor.g, diffuseColor.b);
+		0.5f, 0.5f, 0.5f);
 	glUniform3f(glGetUniformLocation(shaderProg, "light.specular"),
 		1.0f, 1.0f, 1.0f);
 
 
-	glUniform3f(glGetUniformLocation(shaderProg, "material.ambient"),
-		1.0f, 0.5f, 0.31f);
-	glUniform3f(glGetUniformLocation(shaderProg, "material.diffuse"),
-		1.0f, 0.5f, 0.31f);
-	glUniform3f(glGetUniformLocation(shaderProg, "material.specular"),
-		1.0f, 0.5f, 0.31f);
+	glUniform1i(glGetUniformLocation(shaderProg, "material.diffuse"),
+		0);
+	glUniform1i(glGetUniformLocation(shaderProg, "material.specular"),
+		1);
 	glUniform1f(glGetUniformLocation(shaderProg, "material.shininess"),
 		32.0f);
 
@@ -383,6 +375,11 @@ void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos, con
 	GLint mvpLoc = glGetUniformLocation(shaderProg, "mvp");
 	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr(mvp));
 
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, lightQuad.texture);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, lightQuad.specularTexture);
 
 
 	glBindVertexArray(lightQuad.VAO);
@@ -406,4 +403,54 @@ void Renderer::DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const mat4 &v
 	glBindVertexArray(lampQuad.VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
+}
+
+void Renderer::PrepLightmapTexture(GLQuadData &quad, const string &texImgPath, const string &texSpecularImgPath){
+	glGenTextures(1, &(quad.texture));
+	glGenTextures(1, &(quad.specularTexture));
+
+	GLint width, height;
+
+	//Prep image
+	string imgPath = IMAGE_PATH + texImgPath;
+
+	unsigned char *img = SOIL_load_image(imgPath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+	glBindTexture(GL_TEXTURE_2D, quad.texture);
+
+	//Tell OpenGL how to treat texCoords
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//Apply Linear Filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	//Generate image mipmaps
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	//Unload texture
+	SOIL_free_image_data(img);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	//Prep specular image
+	string specularImgPath = IMAGE_PATH + texSpecularImgPath;
+
+	img = SOIL_load_image(specularImgPath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+	glBindTexture(GL_TEXTURE_2D, quad.specularTexture);
+
+	//Tell OpenGL how to treat texCoords
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//Apply Linear Filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	//Generate image mipmaps
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	//Unload texture
+	SOIL_free_image_data(img);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
