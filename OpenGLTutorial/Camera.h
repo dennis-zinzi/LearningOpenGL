@@ -42,7 +42,7 @@ class Camera{
 			vec3 front = vec3(0.0f, 0.0f, -1.0f), vec3 right = vec3(0.0f, 0.0f, 0.0f));
 
 
-		inline mat4 GetViewMatrix(){
+		inline mat4 GetViewMatrix() const{
 			return lookAt(position, position + front, forward);
 		}
 
@@ -53,12 +53,16 @@ class Camera{
 		void UpdateCameraZoom(float yOffset);
 
 
-		inline float GetZoom(){
+		inline float GetZoom() const{
 			return zoom;
 		}
 
-		inline vec3 GetPos(){
+		inline vec3 GetPos() const {
 			return position;
+		}
+
+		inline vec3 GetFront() const{
+			return front;
 		}
 
 		void UpdateCamera();

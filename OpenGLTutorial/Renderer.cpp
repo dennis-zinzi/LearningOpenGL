@@ -337,25 +337,33 @@ void Renderer::DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const 
 	glBindVertexArray(0);
 }
 
-void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes, const vec3 &lightPos, const vec3 &camPos, const mat4 &view, const mat4 &projection, const Shader &lightShader){
+void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes, const vec3 &lightPos, const vec3 &camPos, const vec3 &camFront, const mat4 &view, const mat4 &projection, const Shader &lightShader){
 	lightShader.UseProgram();
 
 	const GLuint shaderProg = lightShader.GetShaderProgram();
 
 	GLint lightPosLoc = glGetUniformLocation(shaderProg, "light.pos");
 	GLint viewPosLoc = glGetUniformLocation(shaderProg, "viewPos");
-	glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
+	glUniform3f(lightPosLoc, camPos.x, camPos.y, camPos.z);
+	//glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 	glUniform3f(viewPosLoc, camPos.x, camPos.y, camPos.z);
 
-	//GLint lightDirLoc = glGetUniformLocation(shaderProg, "light.dir");
-	//glUniform3f(lightDirLoc, -0.2f, -1.0f, -0.3f);
+	GLint lightDirLoc = glGetUniformLocation(shaderProg, "light.dir");
+	glUniform3f(lightDirLoc, camFront.x, camFront.y, camFront.z);
+
+
+	GLint lightCutOffLoc = glGetUniformLocation(shaderProg, "light.cutOff");
+	GLint lightOuterCutOffLoc = glGetUniformLocation(shaderProg, "light.outerCutOff");
+	glUniform1f(lightCutOffLoc, cos(radians(12.5f)));
+	glUniform1f(lightOuterCutOffLoc, cos(radians(17.5f)));
+
 
 
 
 	glUniform3f(glGetUniformLocation(shaderProg, "light.ambient"),
 		0.2f, 0.2f, 0.2f);
 	glUniform3f(glGetUniformLocation(shaderProg, "light.diffuse"),
-		0.5f, 0.5f, 0.5f);
+		0.8f, 0.8f, 0.8f);
 	glUniform3f(glGetUniformLocation(shaderProg, "light.specular"),
 		1.0f, 1.0f, 1.0f);
 

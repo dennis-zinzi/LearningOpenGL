@@ -30,6 +30,7 @@ using glm::translate;
 using glm::rotate;
 using glm::scale;
 using glm::value_ptr;
+using glm::radians;
 
 
 using std::cout;
@@ -84,7 +85,10 @@ class Renderer{
 		void DrawCube(GLQuadData &quadData, const GLfloat vertices[], const mat4 &projection, Shader &shader);
 		void DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const mat4 &view, const mat4 &projection, Shader &shader);
 
-		void DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes, const vec3 &lightPos,  const vec3 &camPos, const mat4 &view, const mat4 &projection, const Shader &lightShader);
+		void DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes, const vec3 &lightPos, 
+			const vec3 &camPos, const vec3 &camFront,
+			const mat4 &view, const mat4 &projection, 
+			const Shader &lightShader);
 		void DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const mat4 &view, const mat4 &projection, const Shader &lampShader);
 
 		void PrepLightmapTexture(GLQuadData &quad, const string &texImgPath, const string &texSpecularImgPath);

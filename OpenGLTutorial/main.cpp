@@ -135,7 +135,7 @@ int main(int argc, char **argv){
 
 
 	Shader lightingShader("lightingVertex.glsl", "lightingFragment.glsl");
-	Shader lampShader("lampVertex.glsl", "lampFrag.glsl");
+	//Shader lampShader("lampVertex.glsl", "lampFrag.glsl");
 	vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 	GLQuadData lightQuad;
@@ -195,8 +195,8 @@ int main(int argc, char **argv){
 		projection = glm::perspective(camera->GetZoom(), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 1000.0f);
 
 		//renderer->DrawCubes(quad, cubePositions, camera->GetVewMatrix(), projection, simple);
-		renderer->DrawLighingCubes(lightQuad, cubePositions, lightPos, camera->GetPos(), camera->GetViewMatrix(), projection, lightingShader);
-		renderer->DrawLamp(lightQuad, lightPos, camera->GetViewMatrix(), projection, lampShader);
+		renderer->DrawLighingCubes(lightQuad, cubePositions, lightPos, camera->GetPos(), camera->GetFront(), camera->GetViewMatrix(), projection, lightingShader);
+		//renderer->DrawLamp(lightQuad, lightPos, camera->GetViewMatrix(), projection, lampShader);
 
 		renderer->RenderScene();
 	}
