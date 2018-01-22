@@ -342,13 +342,13 @@ void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes
 
 	const GLuint shaderProg = lightShader.GetShaderProgram();
 
-	//GLint lightPosLoc = glGetUniformLocation(shaderProg, "light.pos");
+	GLint lightPosLoc = glGetUniformLocation(shaderProg, "light.pos");
 	GLint viewPosLoc = glGetUniformLocation(shaderProg, "viewPos");
-	//glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
+	glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 	glUniform3f(viewPosLoc, camPos.x, camPos.y, camPos.z);
 
-	GLint lightDirLoc = glGetUniformLocation(shaderProg, "light.dir");
-	glUniform3f(lightDirLoc, -0.2f, -1.0f, -0.3f);
+	//GLint lightDirLoc = glGetUniformLocation(shaderProg, "light.dir");
+	//glUniform3f(lightDirLoc, -0.2f, -1.0f, -0.3f);
 
 
 
@@ -358,6 +358,14 @@ void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes
 		0.5f, 0.5f, 0.5f);
 	glUniform3f(glGetUniformLocation(shaderProg, "light.specular"),
 		1.0f, 1.0f, 1.0f);
+
+	glUniform1f(glGetUniformLocation(shaderProg, "light.constant"),
+		1.0f);
+	glUniform1f(glGetUniformLocation(shaderProg, "light.linear"),
+		0.09f);
+	glUniform1f(glGetUniformLocation(shaderProg, "light.quadratic"),
+		0.032f);
+	
 
 	//image at texture0
 	glUniform1i(glGetUniformLocation(shaderProg, "material.diffuse"),
@@ -459,8 +467,9 @@ void Renderer::PrepLightmapTexture(GLQuadData &quad, const string &texImgPath, c
 }
 
 void Renderer::DrawLightCubes(const vector<vec3>& cubes, const GLint &modelLoc, const GLint & mvpLoc, const mat4 & mvp){
-	mat4 model;
+	//mat4 model;
 	for(size_t i = 0; i < cubes.size(); i++){
+		mat4 model;
 		model = translate(model, cubes[i]);
 		GLfloat angle = 20.0f * i;
 		model = rotate(model, angle, vec3(1.0f, 0.3f, 0.5f));
