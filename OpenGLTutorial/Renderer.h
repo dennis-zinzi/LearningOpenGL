@@ -85,11 +85,11 @@ class Renderer{
 		void DrawCube(GLQuadData &quadData, const GLfloat vertices[], const mat4 &projection, Shader &shader);
 		void DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const mat4 &view, const mat4 &projection, Shader &shader);
 
-		void DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes, const vec3 &lightPos, 
+		void DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes, vec3 pointLightPositions[], const vec3 &lightPos,
 			const vec3 &camPos, const vec3 &camFront,
 			const mat4 &view, const mat4 &projection, 
 			const Shader &lightShader);
-		void DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const mat4 &view, const mat4 &projection, const Shader &lampShader);
+		void DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const vec3 pointLightPositions[], const mat4 &view, const mat4 &projection, const Shader &lampShader);
 
 		void PrepLightmapTexture(GLQuadData &quad, const string &texImgPath, const string &texSpecularImgPath);
 		void DrawLightCubes(const vector<vec3> &cubes, const GLint &modelLoc, const GLint &mvpLoc, const mat4 &mvp);

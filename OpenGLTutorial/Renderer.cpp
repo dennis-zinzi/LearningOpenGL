@@ -337,42 +337,125 @@ void Renderer::DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const 
 	glBindVertexArray(0);
 }
 
-void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes, const vec3 &lightPos, const vec3 &camPos, const vec3 &camFront, const mat4 &view, const mat4 &projection, const Shader &lightShader){
+void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes, vec3 pointLightPositions[], const vec3 &lightPos, const vec3 &camPos, const vec3 &camFront, const mat4 &view, const mat4 &projection, const Shader &lightShader){
 	lightShader.UseProgram();
 
 	const GLuint shaderProg = lightShader.GetShaderProgram();
 
-	GLint lightPosLoc = glGetUniformLocation(shaderProg, "light.pos");
+	//GLint lightPosLoc = glGetUniformLocation(shaderProg, "light.pos");
 	GLint viewPosLoc = glGetUniformLocation(shaderProg, "viewPos");
-	glUniform3f(lightPosLoc, camPos.x, camPos.y, camPos.z);
-	//glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 	glUniform3f(viewPosLoc, camPos.x, camPos.y, camPos.z);
+	//glUniform3f(lightPosLoc, camPos.x, camPos.y, camPos.z);
+	//glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 
-	GLint lightDirLoc = glGetUniformLocation(shaderProg, "light.dir");
-	glUniform3f(lightDirLoc, camFront.x, camFront.y, camFront.z);
+	
+	//Directional Lighting
+	glUniform3f(glGetUniformLocation(shaderProg, "dirLight.dir"),
+		-0.2f, -1.0f, -0.3f);
+	glUniform3f(glGetUniformLocation(shaderProg, "dirLight.ambient"),
+		0.05f, 0.05f, 0.05f);
+	glUniform3f(glGetUniformLocation(shaderProg, "dirLight.diffuse"),
+		0.4f, 0.4f, 0.4f);
+	glUniform3f(glGetUniformLocation(shaderProg, "dirLight.specular"),
+		0.5f, 0.5f, 0.5f);
 
 
-	GLint lightCutOffLoc = glGetUniformLocation(shaderProg, "light.cutOff");
-	GLint lightOuterCutOffLoc = glGetUniformLocation(shaderProg, "light.outerCutOff");
-	glUniform1f(lightCutOffLoc, cos(radians(12.5f)));
-	glUniform1f(lightOuterCutOffLoc, cos(radians(17.5f)));
-
-
-
-
-	glUniform3f(glGetUniformLocation(shaderProg, "light.ambient"),
-		0.2f, 0.2f, 0.2f);
-	glUniform3f(glGetUniformLocation(shaderProg, "light.diffuse"),
+	///Point Lights
+	//Point Light 0
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[0].pos"),
+		pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[0].ambient"),
+		0.05f, 0.05f, 0.05f);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[0].diffuse"),
 		0.8f, 0.8f, 0.8f);
-	glUniform3f(glGetUniformLocation(shaderProg, "light.specular"),
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[0].specular"),
 		1.0f, 1.0f, 1.0f);
 
-	glUniform1f(glGetUniformLocation(shaderProg, "light.constant"),
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[0].constant"),
 		1.0f);
-	glUniform1f(glGetUniformLocation(shaderProg, "light.linear"),
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[0].linear"),
 		0.09f);
-	glUniform1f(glGetUniformLocation(shaderProg, "light.quadratic"),
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[0].quadratic"),
 		0.032f);
+
+	//Point Light 1
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[1].pos"),
+		pointLightPositions[1].x, pointLightPositions[1].y, pointLightPositions[1].z);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[1].ambient"),
+		0.05f, 0.05f, 0.05f);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[1].diffuse"),
+		0.8f, 0.8f, 0.8f);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[1].specular"),
+		1.0f, 1.0f, 1.0f);
+
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[1].constant"),
+		1.0f);
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[1].linear"),
+		0.09f);
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[1].quadratic"),
+		0.032f);
+
+	//Point Light 2
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[2].pos"),
+		pointLightPositions[2].x, pointLightPositions[2].y, pointLightPositions[2].z);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[2].ambient"),
+		0.05f, 0.05f, 0.05f);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[2].diffuse"),
+		0.8f, 0.8f, 0.8f);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[2].specular"),
+		1.0f, 1.0f, 1.0f);
+
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[2].constant"),
+		1.0f);
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[2].linear"),
+		0.09f);
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[2].quadratic"),
+		0.032f);
+
+
+	//Point Light 3
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[3].pos"),
+		pointLightPositions[3].x, pointLightPositions[3].y, pointLightPositions[3].z);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[3].ambient"),
+		0.05f, 0.05f, 0.05f);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[3].diffuse"),
+		0.8f, 0.8f, 0.8f);
+	glUniform3f(glGetUniformLocation(shaderProg, "pointLights[3].specular"),
+		1.0f, 1.0f, 1.0f);
+
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[3].constant"),
+		1.0f);
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[3].linear"),
+		0.09f);
+	glUniform1f(glGetUniformLocation(shaderProg, "pointLights[3].quadratic"),
+		0.032f);
+	
+
+	//Spotlights
+	glUniform3f(glGetUniformLocation(shaderProg, "spotLight.pos"),
+		camPos.x, camPos.y, camPos.z);
+	glUniform3f(glGetUniformLocation(shaderProg, "spotLight.dir"),
+		camFront.x, camFront.y, camFront.z);
+	glUniform1f(glGetUniformLocation(shaderProg, "spotLight.cutOff"),
+		cos(radians(12.5f)));
+	glUniform1f(glGetUniformLocation(shaderProg, "spotLight.outerCutOff"),
+		cos(radians(17.5f)));
+
+	glUniform3f(glGetUniformLocation(shaderProg, "spotLight.ambient"),
+		0.0f, 0.0f, 0.0f);
+	glUniform3f(glGetUniformLocation(shaderProg, "spotLight.diffuse"),
+		1.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shaderProg, "spotLight.specular"),
+		1.0f, 1.0f, 1.0f);
+
+	glUniform1f(glGetUniformLocation(shaderProg, "spotLight.constant"),
+		1.0f);
+	glUniform1f(glGetUniformLocation(shaderProg, "spotLight.linear"),
+		0.09f);
+	glUniform1f(glGetUniformLocation(shaderProg, "spotLight.quadratic"),
+		0.032f);
+
+	
 	
 
 	//image at texture0
@@ -401,13 +484,12 @@ void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes
 
 
 	glBindVertexArray(lightQuad.VAO);
-	/*glDrawArrays(GL_TRIANGLES, 0, 36);*/
 	DrawLightCubes(cubes, modelLoc, mvpLoc, mvp);
 	glBindVertexArray(0);
 
 }
 
-void Renderer::DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const mat4 &view, const mat4 &projection, const Shader &lampShader){
+void Renderer::DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const vec3 pointLightPositions[], const mat4 &view, const mat4 &projection, const Shader &lampShader){
 	lampShader.UseProgram();
 
 	mat4 model;
@@ -421,6 +503,13 @@ void Renderer::DrawLamp(GLQuadData &lampQuad, const vec3 &lampPos, const mat4 &v
 
 	glBindVertexArray(lampQuad.VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
+	for(size_t i = 0; i < 4; i++){
+		model = mat4();
+		model = translate(model, pointLightPositions[i]);
+		model = scale(model, vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr(projection * view * model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
 	glBindVertexArray(0);
 }
 
