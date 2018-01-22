@@ -7,7 +7,8 @@ struct Material{
 };
 
 struct Light{
-	vec3 pos;
+	vec3 dir;
+	//vec3 pos;
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
@@ -34,7 +35,8 @@ void main(){
 
 	//Diffuse
 	vec3 norm = normalize(myNormal);
-	vec3 lightDir = normalize(light.pos - fragPos);
+	//vec3 lightDir = normalize(light.pos - fragPos);
+	vec3 lightDir = normalize(-light.dir);
 	float diff = max(dot(norm, lightDir), 0.0f);
 	vec3 diffuse = light.diffuse * diff * tex;
 

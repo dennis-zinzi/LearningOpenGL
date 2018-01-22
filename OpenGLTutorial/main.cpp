@@ -115,9 +115,19 @@ int main(int argc, char **argv){
 		-0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 0.0f,
 		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f
 	};
-
-	//Set texture
-	//renderer->PrepQuadTexture(quad, "batman.jpg");
+	// Positions all containers
+	vector<vec3> cubePositions = {
+		vec3(0.0f, 0.0f, 0.0f),
+		vec3(2.0f, 5.0f, -15.0f),
+		vec3(-1.5f, -2.2f, -2.5f),
+		vec3(-3.8f, -2.0f, -12.3f),
+		vec3(2.4f, -0.4f, -3.5f),
+		vec3(-1.7f, 3.0f, -7.5f),
+		vec3(1.3f, -2.0f, -2.5f),
+		vec3(1.5f, 2.0f, -2.5f),
+		vec3(1.5f, 0.2f, -1.5f),
+		vec3(-1.3f, 1.0f, -1.5f)
+	};
 
 	Camera *camera = new Camera(vec3(0.0f, 0.0f, 3.0f));
 
@@ -125,7 +135,7 @@ int main(int argc, char **argv){
 
 
 	Shader lightingShader("lightingVertex.glsl", "lightingFragment.glsl");
-	Shader lampShader("lampVertex.glsl", "lampFrag.glsl");
+	//Shader lampShader("lampVertex.glsl", "lampFrag.glsl");
 	vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 	GLQuadData lightQuad;
@@ -185,8 +195,8 @@ int main(int argc, char **argv){
 		projection = glm::perspective(camera->GetZoom(), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 1000.0f);
 
 		//renderer->DrawCubes(quad, cubePositions, camera->GetVewMatrix(), projection, simple);
-		renderer->DrawLighingCubes(lightQuad, lightPos, camera->GetPos(), camera->GetViewMatrix(), projection, lightingShader);
-		renderer->DrawLamp(lightQuad, lightPos, camera->GetViewMatrix(), projection, lampShader);
+		renderer->DrawLighingCubes(lightQuad, cubePositions, lightPos, camera->GetPos(), camera->GetViewMatrix(), projection, lightingShader);
+		//renderer->DrawLamp(lightQuad, lightPos, camera->GetViewMatrix(), projection, lampShader);
 
 		renderer->RenderScene();
 	}

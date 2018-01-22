@@ -337,18 +337,19 @@ void Renderer::DrawCubes(GLQuadData &quadData, const vector<vec3> &cubes, const 
 	glBindVertexArray(0);
 }
 
-void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos, const vec3 &camPos, const mat4 &view, const mat4 &projection, const Shader &lightShader){
+void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vector<vec3> &cubes, const vec3 &lightPos, const vec3 &camPos, const mat4 &view, const mat4 &projection, const Shader &lightShader){
 	lightShader.UseProgram();
 
 	const GLuint shaderProg = lightShader.GetShaderProgram();
 
-	GLint lightPosLoc = glGetUniformLocation(shaderProg, "light.pos");
+	//GLint lightPosLoc = glGetUniformLocation(shaderProg, "light.pos");
 	GLint viewPosLoc = glGetUniformLocation(shaderProg, "viewPos");
-	glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
+	//glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 	glUniform3f(viewPosLoc, camPos.x, camPos.y, camPos.z);
 
-	//Time in secs
-	float time = SDL_GetTicks() * 0.001f;
+	GLint lightDirLoc = glGetUniformLocation(shaderProg, "light.dir");
+	glUniform3f(lightDirLoc, -0.2f, -1.0f, -0.3f);
+
 
 
 	glUniform3f(glGetUniformLocation(shaderProg, "light.ambient"),
@@ -358,22 +359,23 @@ void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos, con
 	glUniform3f(glGetUniformLocation(shaderProg, "light.specular"),
 		1.0f, 1.0f, 1.0f);
 
-
+	//image at texture0
 	glUniform1i(glGetUniformLocation(shaderProg, "material.diffuse"),
 		0);
+	//specular image at texture1
 	glUniform1i(glGetUniformLocation(shaderProg, "material.specular"),
 		1);
 	glUniform1f(glGetUniformLocation(shaderProg, "material.shininess"),
 		32.0f);
 
 	
-	mat4 model;
+	//mat4 model;
 	GLint modelLoc = glGetUniformLocation(shaderProg, "model");
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+	//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
 
-	mat4 mvp = projection * view * model;
+	mat4 mvp = projection * view;
 	GLint mvpLoc = glGetUniformLocation(shaderProg, "mvp");
-	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr(mvp));
+	//glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr(mvp));
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, lightQuad.texture);
@@ -383,7 +385,8 @@ void Renderer::DrawLighingCubes(GLQuadData &lightQuad, const vec3 &lightPos, con
 
 
 	glBindVertexArray(lightQuad.VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	/*glDrawArrays(GL_TRIANGLES, 0, 36);*/
+	DrawLightCubes(cubes, modelLoc, mvpLoc, mvp);
 	glBindVertexArray(0);
 
 }
@@ -453,4 +456,18 @@ void Renderer::PrepLightmapTexture(GLQuadData &quad, const string &texImgPath, c
 	//Unload texture
 	SOIL_free_image_data(img);
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Renderer::DrawLightCubes(const vector<vec3>& cubes, const GLint &modelLoc, const GLint & mvpLoc, const mat4 & mvp){
+	mat4 model;
+	for(size_t i = 0; i < cubes.size(); i++){
+		model = translate(model, cubes[i]);
+		GLfloat angle = 20.0f * i;
+		model = rotate(model, angle, vec3(1.0f, 0.3f, 0.5f));
+
+		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr((mvp * model)));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
 }
