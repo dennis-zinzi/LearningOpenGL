@@ -18,7 +18,6 @@ void Mesh::Draw(const Shader &shader){
 		glActiveTexture(GL_TEXTURE0 + i);
 
 		stringstream stream;
-		string num;
 		string name = textures[i].type;
 
 		if(name == "texture_diffuse"){
@@ -28,7 +27,7 @@ void Mesh::Draw(const Shader &shader){
 			stream << specularNum++;
 		}
 
-		num = stream.str();
+		string num = stream.str();
 
 		glUniform1i(glGetUniformLocation(shaderProg, (name + num).c_str()),
 			i);

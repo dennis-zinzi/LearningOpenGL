@@ -134,7 +134,7 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial * material, aiTextureType
 		material->GetTexture(type, i, &str);
 
 		GLboolean skip = false;
-		//for(GLuint j = 0; j < loadedTextures.size(); j++){
+		
 		for(auto &tex : loadedTextures){
 			if(tex.path == str){
 				textures.push_back(tex);

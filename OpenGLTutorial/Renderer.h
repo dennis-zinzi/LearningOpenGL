@@ -26,6 +26,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 using glm::mat4;
+using glm::mat3;
 using glm::vec3;
 using glm::translate;
 using glm::rotate;
@@ -96,6 +97,12 @@ class Renderer{
 		void DrawLightCubes(const vector<vec3> &cubes, const GLint &modelLoc, const GLint &mvpLoc, const mat4 &mvp);
 
 		void DrawModel(const Model &model, const Shader &shader, const mat4 &view, const mat4 &projection);
+
+		GLuint LoadTexture(const string &tex);
+		GLuint LoadCubeTexture(const vector<string> &faces);
+
+		void DrawSkybox(const GLuint &VAO, const GLuint &tex, const Shader &shader, const mat4 &view, const mat4 &projection);
+
 
 	private:
 		SDL_Window *screen;

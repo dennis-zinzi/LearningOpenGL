@@ -43,6 +43,7 @@ Renderer::Renderer(){
 	//Enable depth test (Causes z-fighting)
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LEQUAL);
 
 	////Enable texture mapping
 	//glEnable(GL_TEXTURE_2D);
@@ -584,7 +585,7 @@ void Renderer::DrawModel(const Model &model, const Shader &shader, const mat4 &v
 	GLuint shaderProg = shader.GetShaderProgram();
 
 	mat4 modelMat;
-	modelMat = translate(modelMat, vec3(0.0f, -1.75f, 0.0f));
+	modelMat = translate(modelMat, vec3(0.0f, -1.75f, -1.0f));
 	modelMat = scale(modelMat, vec3(0.2f, 0.2f, 0.2f));
 
 	mat4 mvp = projection * view * modelMat;
@@ -592,4 +593,83 @@ void Renderer::DrawModel(const Model &model, const Shader &shader, const mat4 &v
 	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr(mvp));
 
 	model.Draw(shader);
+}
+
+
+GLuint Renderer::LoadTexture(const string &tex){
+	GLuint texture;
+
+	GLint width, height;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	string imgPath = IMAGE_PATH + tex;
+
+	unsigned char *img = SOIL_load_image(imgPath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
+
+	//Generate image mipmaps
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	//Tell OpenGL how to treat texCoords
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//Apply Linear Filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
+	//Unload texture
+	SOIL_free_image_data(img);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	return texture;
+}
+
+GLuint Renderer::LoadCubeTexture(const vector<string> &faces){
+	GLuint texture;
+
+	GLint width, height;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+
+	string imgPath;
+
+	unsigned char *img;
+	
+	for(GLuint i = 0; i < faces.size(); i++){
+		imgPath = IMAGE_PATH + faces[i];
+
+		img = SOIL_load_image(imgPath.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, img);
+		SOIL_free_image_data(img);
+	}
+	
+	//Tell OpenGL how to treat texCoords
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	//Apply Linear Filtering
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
+	//Unload texture
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
+	return texture;
+}
+
+
+
+void Renderer::DrawSkybox(const GLuint &VAO, const GLuint &tex, const Shader &shader, const mat4 &view, const mat4 &projection){
+	shader.UseProgram();
+	
+	glUniformMatrix4fv(glGetUniformLocation(shader.GetShaderProgram(), "vp"),
+		1, GL_FALSE, value_ptr(projection * mat4(mat3(view))));
+
+	glBindVertexArray(VAO);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, tex);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
 }

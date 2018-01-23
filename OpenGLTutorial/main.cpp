@@ -3,6 +3,8 @@
 #include "Camera.h"
 #include "Model.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 bool CheckInputs(Camera *camera, const float time){
 	SDL_Event event;
@@ -68,6 +70,7 @@ bool CheckInputs(Camera *camera, const float time){
 	return true;
 }
 
+
 int main(int argc, char **argv){
 	Renderer *renderer = new Renderer;
 
@@ -83,6 +86,75 @@ int main(int argc, char **argv){
 	Shader modelShade("modelLoadVert.glsl", "modelLoadFrag.glsl");
 	Model model("nanosuit.obj");
 	
+	Shader skyboxShader("skyboxVert.glsl", "skyboxFrag.glsl");
+	GLfloat skyboxVertices[] = {
+		// Positions
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+
+		-1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, -1.0f, 1.0f,
+
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+
+		-1.0f, -1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, 1.0f,
+
+		-1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, -1.0f,
+
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f
+	};
+
+	GLQuadData skyQuad;
+	glGenVertexArrays(1, &(skyQuad.VAO));
+	glGenBuffers(1, &(skyQuad.VBO));
+
+	glBindVertexArray(skyQuad.VAO);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, skyQuad.VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	vector<string> skyFaces = {
+		"skybox/right.tga",
+		"skybox/left.tga",
+		"skybox/top.tga",
+		"skybox/bottom1.png",
+		"skybox/back.tga",
+		"skybox/front.tga",
+	};
+
+	skyQuad.texture = renderer->LoadCubeTexture(skyFaces);
+	
+
 	//Enables wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -90,17 +162,18 @@ int main(int argc, char **argv){
 		newTime = (float)SDL_GetTicks();
 		running = CheckInputs(camera, newTime - msec);
 		msec = newTime;
-
-		//lightPos.x -= 0.005f;
-		//lightPos.z -= 0.005f;
 		
 		projection = glm::perspective(camera->GetZoom(), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 1000.0f);
 
+		//Draw Objects
+		renderer->DrawSkybox(skyQuad.VAO, skyQuad.texture, skyboxShader, camera->GetViewMatrix(), projection);
 		renderer->DrawModel(model, modelShade, camera->GetViewMatrix(), projection);
+
 
 		renderer->RenderScene();
 	}
 
+	renderer->UnloadQuad(skyQuad);
 
 	delete renderer;
 
