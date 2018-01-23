@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "Shader.h"
 #include "Camera.h"
+#include "Model.h"
 
 
 bool CheckInputs(Camera *camera, const float time){
@@ -22,8 +23,8 @@ bool CheckInputs(Camera *camera, const float time){
 				break;
 			}
 			case SDL_MOUSEMOTION: {
-				float xOffset = event.motion.xrel,
-					yOffset = event.motion.yrel;
+				float xOffset = (float)event.motion.xrel,
+					yOffset = (float)event.motion.yrel;
 
 				camera->UpdateCameraLook(xOffset, -yOffset);
 
@@ -70,126 +71,20 @@ bool CheckInputs(Camera *camera, const float time){
 int main(int argc, char **argv){
 	Renderer *renderer = new Renderer;
 
-	//Cube vertices
-	GLfloat vertices[] = {
-		// Positions            // Normals          // Texture Coords
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, -1.0f,	0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,		0.0f, 0.0f, -1.0f,	1.0f, 0.0f,
-		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,	1.0f, 1.0f,
-		0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,	1.0f, 1.0f,
-		-0.5f, 0.5f, -0.5f,		0.0f, 0.0f, -1.0f,	0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, -1.0f,	0.0f, 0.0f,
-
-		-0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,
-		0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	1.0f, 0.0f,
-		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	1.0f, 1.0f,
-		0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	1.0f, 1.0f,
-		-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	0.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,
-
-		-0.5f, 0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,	1.0f, 0.0f,
-		-0.5f, 0.5f, -0.5f,		-1.0f, 0.0f, 0.0f,	1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,	-1.0f, 0.0f, 0.0f,	0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,	-1.0f, 0.0f, 0.0f,	0.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,	0.0f, 0.0f,
-		-0.5f, 0.5f, 0.5f,		-1.0f, 0.0f, 0.0f,	1.0f, 0.0f,
-
-		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 0.0f,
-		0.5f, 0.5f, -0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,	0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,	0.0f, 1.0f,
-		0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	0.0f, 0.0f,
-		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,	0.0f, -1.0f, 0.0f,	0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,		0.0f, -1.0f, 0.0f,	1.0f, 1.0f,
-		0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,	1.0f, 0.0f,
-		0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,	1.0f, 0.0f,
-		-0.5f, -0.5f, 0.5f,		0.0f, -1.0f, 0.0f,	0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, -1.0f, 0.0f,	0.0f, 1.0f,
-
-		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,
-		0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,
-		0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 0.0f,
-		0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 0.0f,
-		-0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 0.0f,
-		-0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f
-	};
-	// Positions all containers
-	vector<vec3> cubePositions = {
-		vec3(0.0f, 0.0f, 0.0f),
-		vec3(2.0f, 5.0f, -15.0f),
-		vec3(-1.5f, -2.2f, -2.5f),
-		vec3(-3.8f, -2.0f, -12.3f),
-		vec3(2.4f, -0.4f, -3.5f),
-		vec3(-1.7f, 3.0f, -7.5f),
-		vec3(1.3f, -2.0f, -2.5f),
-		vec3(1.5f, 2.0f, -2.5f),
-		vec3(1.5f, 0.2f, -1.5f),
-		vec3(-1.3f, 1.0f, -1.5f)
-	};
-
-	vec3 pointLightPositions[] = {
-		vec3(0.7f, 0.2f, 2.0f),
-		vec3(2.3f, -3.3f, -4.0f),
-		vec3(-4.0f, 2.0f, -12.0f),
-		vec3(0.0f, 0.0f, -3.0f)
-	};
-
 	Camera *camera = new Camera(vec3(0.0f, 0.0f, 3.0f));
 
 	mat4 projection;
-
-
-	Shader lightingShader("lightingVertex.glsl", "lightingFragment.glsl");
-	Shader lampShader("lampVertex.glsl", "lampFrag.glsl");
-	vec3 lightPos(1.2f, 1.0f, 2.0f);
-
-	GLQuadData lightQuad;
-	//lightQuad.VBO = quad.VBO;
-	//renderer->PrepQuad(quad, vertices, indices);
-	//Generate VAO and VBO
-	glGenVertexArrays(1, &(lightQuad.VAO));
-	glGenBuffers(1, &(lightQuad.VBO));
-
-	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	glBindVertexArray(lightQuad.VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, lightQuad.VBO);
-
-	//Put data in buffer
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-
-
-	//Tell OpenGL how vertex data should be interpreted
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-
-
-	//Tell OpenGL how normal data is parsed
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-
-	//Tell OpenGL how texture data is parsed
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(2);
-
-	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO,
-	// but this rarely happens. Modifying other VAOs requires a call to glBindVertexArray
-	// anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-	glBindVertexArray(0);
-
-	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex
-	// attribute's bound vertex buffer object so afterwards we can safely unbind
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	renderer->PrepLightmapTexture(lightQuad, "container2.png", "container2_specular.png");
-
 
 	bool running = true;
 
 	float msec = 0.0f,
 		newTime = 0.0f;
+
+	Shader modelShade("modelLoadVert.glsl", "modelLoadFrag.glsl");
+	Model model("nanosuit.obj");
+	
+	//Enables wireframe mode
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	while(running){
 		newTime = (float)SDL_GetTicks();
@@ -201,16 +96,12 @@ int main(int argc, char **argv){
 		
 		projection = glm::perspective(camera->GetZoom(), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 1000.0f);
 
-		//renderer->DrawCubes(quad, cubePositions, camera->GetVewMatrix(), projection, simple);
-		renderer->DrawLighingCubes(lightQuad, cubePositions, pointLightPositions, lightPos, camera->GetPos(), camera->GetFront(), camera->GetViewMatrix(), projection, lightingShader);
-		renderer->DrawLamp(lightQuad, lightPos, pointLightPositions, camera->GetViewMatrix(), projection, lampShader);
+		renderer->DrawModel(model, modelShade, camera->GetViewMatrix(), projection);
 
 		renderer->RenderScene();
 	}
 
 
-	//renderer->UnloadTri(tri);
-	renderer->UnloadQuad(lightQuad);
 	delete renderer;
 
 	return 0;

@@ -10,6 +10,7 @@
 
 #include "common.h"
 #include "Shader.h"
+#include "Model.h"
 
 #include <iostream>
 #include <vector>
@@ -93,6 +94,8 @@ class Renderer{
 
 		void PrepLightmapTexture(GLQuadData &quad, const string &texImgPath, const string &texSpecularImgPath);
 		void DrawLightCubes(const vector<vec3> &cubes, const GLint &modelLoc, const GLint &mvpLoc, const mat4 &mvp);
+
+		void DrawModel(const Model &model, const Shader &shader, const mat4 &view, const mat4 &projection);
 
 	private:
 		SDL_Window *screen;

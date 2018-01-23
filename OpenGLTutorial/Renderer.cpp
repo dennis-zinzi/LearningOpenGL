@@ -577,3 +577,19 @@ void Renderer::DrawLightCubes(const vector<vec3>& cubes, const GLint &modelLoc, 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 }
+
+void Renderer::DrawModel(const Model &model, const Shader &shader, const mat4 &view, const mat4 &projection){
+	shader.UseProgram();
+	
+	GLuint shaderProg = shader.GetShaderProgram();
+
+	mat4 modelMat;
+	modelMat = translate(modelMat, vec3(0.0f, -1.75f, 0.0f));
+	modelMat = scale(modelMat, vec3(0.2f, 0.2f, 0.2f));
+
+	mat4 mvp = projection * view * modelMat;
+	GLint mvpLoc = glGetUniformLocation(shaderProg, "mvp");
+	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, value_ptr(mvp));
+
+	model.Draw(shader);
+}

@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/code/CMakeLists.txt
+D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/cmake-modules/FindRT.cmake
+C:/Users/denni/Downloads/cmake-3.10.2-win64-x64/cmake-3.10.2-win64-x64/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake
+C:/Users/denni/Downloads/cmake-3.10.2-win64-x64/cmake-3.10.2-win64-x64/share/cmake-3.10/Modules/FindPackageMessage.cmake

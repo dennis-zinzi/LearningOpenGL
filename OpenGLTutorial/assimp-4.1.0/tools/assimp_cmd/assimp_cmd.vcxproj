@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F4EA3D3B-D189-3DF3-BA07-9B5D26E27B66}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>assimp_cmd</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">assimp_cmd.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">assimp</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">assimp_cmd.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">assimp</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">assimp_cmd.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">assimp</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">assimp_cmd.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">assimp</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32_LEAN_AND_MEAN;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_NO_C4D_IMPORTER;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;WIN32_LEAN_AND_MEAN;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_NO_C4D_IMPORTER;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Users\denni\Downloads\cmake-3.10.2-win64-x64\cmake-3.10.2-win64-x64\bin\cmake.exe -E copy_if_different D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/Debug/assimp-vc140-mt.dll D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\lib\Debug\assimp-vc140-mt.lib;..\..\lib\Debug\zlibstaticd.lib;..\..\lib\Debug\IrrXML.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0;D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/$(Configuration);D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib;D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib/Debug/assimp.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/Debug/assimp.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_NO_C4D_IMPORTER;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_NO_C4D_IMPORTER;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Users\denni\Downloads\cmake-3.10.2-win64-x64\cmake-3.10.2-win64-x64\bin\cmake.exe -E copy_if_different D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/Release/assimp-vc140-mt.dll D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/Release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\lib\Release\assimp-vc140-mt.lib;..\..\lib\Release\zlibstatic.lib;..\..\lib\Release\IrrXML.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0;D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/$(Configuration);D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib;D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib/Release/assimp.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/Release/assimp.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_NO_C4D_IMPORTER;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_NO_C4D_IMPORTER;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Users\denni\Downloads\cmake-3.10.2-win64-x64\cmake-3.10.2-win64-x64\bin\cmake.exe -E copy_if_different D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/MinSizeRel/assimp-vc140-mt.dll D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/MinSizeRel
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\lib\MinSizeRel\assimp-vc140-mt.lib;..\..\lib\MinSizeRel\zlibstatic.lib;..\..\lib\MinSizeRel\IrrXML.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0;D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/$(Configuration);D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib;D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib/MinSizeRel/assimp.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/MinSizeRel/assimp.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_NO_C4D_IMPORTER;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_NO_C4D_IMPORTER;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\.;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\include;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Users\denni\Downloads\cmake-3.10.2-win64-x64\cmake-3.10.2-win64-x64\bin\cmake.exe -E copy_if_different D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/RelWithDebInfo/assimp-vc140-mt.dll D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/RelWithDebInfo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\lib\RelWithDebInfo\assimp-vc140-mt.lib;..\..\lib\RelWithDebInfo\zlibstatic.lib;..\..\lib\RelWithDebInfo\IrrXML.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0;D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/$(Configuration);D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib;D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/lib/RelWithDebInfo/assimp.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/bin/RelWithDebInfo/assimp.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+C:\Users\denni\Downloads\cmake-3.10.2-win64-x64\cmake-3.10.2-win64-x64\bin\cmake.exe -HD:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0 -BD:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0 --check-stamp-file D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeLists.txt;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+C:\Users\denni\Downloads\cmake-3.10.2-win64-x64\cmake-3.10.2-win64-x64\bin\cmake.exe -HD:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0 -BD:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0 --check-stamp-file D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeLists.txt;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+C:\Users\denni\Downloads\cmake-3.10.2-win64-x64\cmake-3.10.2-win64-x64\bin\cmake.exe -HD:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0 -BD:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0 --check-stamp-file D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeLists.txt;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+C:\Users\denni\Downloads\cmake-3.10.2-win64-x64\cmake-3.10.2-win64-x64\bin\cmake.exe -HD:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0 -BD:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0 --check-stamp-file D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/denni/Documents/GameDev/LearningOpenGL/OpenGLTutorial/assimp-4.1.0/tools/assimp_cmd/CMakeLists.txt;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt;D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\assimp_cmd.rc"  />
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CompareDump.cpp"  />
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\ImageExtractor.cpp"  />
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\Main.cpp"  />
+    <ClInclude Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\Main.h" />
+    <ClInclude Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\resource.h" />
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\WriteDumb.cpp"  />
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\Info.cpp"  />
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\Export.cpp"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\ZERO_CHECK.vcxproj">
+      <Project>{952F698D-75F4-3073-A887-1C80BA65B23C}</Project>
+      <Name>ZERO_CHECK</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\irrXML\IrrXML.vcxproj">
+      <Project>{274C157E-8CFE-3026-927F-13278A0FDDA4}</Project>
+      <Name>IrrXML</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\code\assimp.vcxproj">
+      <Project>{3AA76D98-6676-347A-9547-68ED36C0C8A8}</Project>
+      <Name>assimp</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\contrib\zlib\zlibstatic.vcxproj">
+      <Project>{9C6D5544-E8A9-3F69-9305-FED1D559E7D4}</Project>
+      <Name>zlibstatic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

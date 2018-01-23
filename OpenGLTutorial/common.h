@@ -5,3 +5,4 @@
 
 #define SHADER_PATH "./Assets/Shaders/"
 #define IMAGE_PATH "./Assets/Images/"
+#define MODEL_PATH "./Assets/Models/"

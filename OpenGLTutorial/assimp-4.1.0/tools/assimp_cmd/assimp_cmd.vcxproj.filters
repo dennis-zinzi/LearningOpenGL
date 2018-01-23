@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CompareDump.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\ImageExtractor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\WriteDumb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\Info.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\Export.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\Main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\tools\assimp_cmd\assimp_cmd.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{FBE88025-A0E3-3A66-8D4E-37BB9B9A6BEF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{841E842E-84E5-3CF6-AFF4-3E359EC70799}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

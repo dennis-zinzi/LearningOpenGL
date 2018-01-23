@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\test\CMakeLists.txt" />
+    <CustomBuild Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\CMakeFiles\246b30e69323673f9780b72cbe44d0c2\Experimental.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\denni\Documents\GameDev\LearningOpenGL\OpenGLTutorial\assimp-4.1.0\test\CMakeFiles\Experimental" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{BE2B4351-688A-38A9-ABB3-116F035AD4BF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
